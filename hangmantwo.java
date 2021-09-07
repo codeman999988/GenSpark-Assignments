@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-public class hangman {
+public class hangmantwo {
     public static void main(String[] args) {
         // ESTABLISH ALL VARIABLES
         Random rand = new Random();
@@ -25,7 +25,7 @@ public class hangman {
         Scanner playerInput = new Scanner(System.in);
         System.out.println("Welcome to Hangman!  Guess a letter!");
         System.out.println("H A N G M A N");
-        StringBuffer blankBuff = new StringBuffer(blank);
+        StringBuffer displayAnswer = new StringBuffer(blank);
 
         while (game < 7) {
 
@@ -55,7 +55,7 @@ public class hangman {
             System.out.println("      |");
             System.out.println("    ===");
             System.out.println("Missed letters:" + wrongGuesses);
-            System.out.println(blankBuff);
+            System.out.println(displayAnswer);
             if (game == 6) {
                 System.out.println("Oh no!  You lost!  Would you like to play again?  (y or n)");
                 char playAgain = playerInput.next().charAt(0);
@@ -65,25 +65,28 @@ public class hangman {
                     game = 0;
                     blank = "";
                     for (int i = 0; i < word.length(); i++) {
-                        blank = blank + "_ ";
+                        blank = blank + " _";
                     }
                     ;
                     charDisplay = new char[word.length()];
                     wrongGuesses = new HashSet<>();
+                    displayAnswer = new StringBuffer(blank);
+
                     continue;
                 }
             }
             char guess = playerInput.next().charAt(0);
 
-            for (int i = 0; i < word.length(); i++) {
-                if (guess == word.charAt(i)) {
-                    blankBuff.setCharAt(i, guess);
-                    break;
-                } else if (!wrongGuesses.contains(guess) && guess != word.charAt(i)) {
-                    wrongGuesses.add(guess);
-                    game++;
-                }
+            if (!wrongGuesses.contains(guess) && word.indexOf(guess) == -1) {
+                wrongGuesses.add(guess);
+                game++;
+            } else if (word.indexOf(guess) != -1) {
+                displayAnswer.setCharAt(word.indexOf(guess), guess);
+            } else {
+                System.out.println("You already guessed that, guess again");
             }
+            ;
+
             System.out.println(Arrays.toString(charDisplay));
 
             System.out.println("");
@@ -92,7 +95,20 @@ public class hangman {
 
     }
 }
-// O
-// \/
-// |
-// /
+
+// PRINT Hangman
+// SYSTEM INPUT
+// GUESSED IF
+// GUESS IS
+// RIGHT
+// SET
+// INDEX OF
+// ANSWER TO
+// RIGHT answer
+// IF INDEX
+// IS WRONG
+// ADD WRONG
+// GUESS TO
+// HASHLIST
+// PRINT
+// HANGMAN
